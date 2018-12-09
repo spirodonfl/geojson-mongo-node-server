@@ -1,0 +1,12 @@
+{
+  "name": "geojson-mongo-node-server",
+  "version": "0.0.1",
+  "description": "A node server for querying geojson from mongo",
+  "main": "index.js",
+  "repository": "git@github.com:spirodonfl/geojson-mongo-node-server.git",
+  "author": "Spiro Floropoulos <spirodonfl@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^5.3.15"
+  }
+}
