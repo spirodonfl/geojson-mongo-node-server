@@ -115,6 +115,10 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
+"node-simple-server@https://github.com/spirodonfl/node-simple-server":
+  version "1.0.3"
+  resolved "https://github.com/spirodonfl/node-simple-server#97e934ba00cc8b84360af8c37e7c2248579eeadf"
+
 regexp-clone@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/regexp-clone/-/regexp-clone-0.0.1.tgz#a7c2e09891fdbf38fbb10d376fb73003e68ac589"
