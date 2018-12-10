@@ -2,6 +2,9 @@ let nss = require('node-simple-server');
 require('./geojson-schema.js');
 require('dotenv').config({path: '.env'});
 
+let mongoConnectionURL = 'mongodb://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+console.log(mongoConnectionURL);
+
 let ss = new nss.SimpleServer(process.env.SERVER_PORT, './');
 ss.addRoute('POST', '/point', (request, response) => {
     let arrival = [];
@@ -13,7 +16,7 @@ ss.addRoute('POST', '/point', (request, response) => {
             console.log('arrival: ', arrival);
 
             let mongoose = require('mongoose');
-            mongoose.connect('mongodb://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME, {useNewUrlParser: true});
+            mongoose.connect(mongoConnectionURL, {useNewUrlParser: true});
             let db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
             db.once('open', function() {
