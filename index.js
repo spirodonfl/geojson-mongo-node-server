@@ -29,6 +29,7 @@ ss.addRoute('POST', '/point', (request, response) => {
             arrival = JSON.parse(arrival);
             console.log('arrival: ', arrival);
 
+            console.log(mongoConnectionURL);
             let mongoose = require('mongoose');
             mongoose.connect(mongoConnectionURL, {useNewUrlParser: true});
             let db = mongoose.connection;
