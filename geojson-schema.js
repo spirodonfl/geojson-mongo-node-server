@@ -541,3 +541,17 @@ FeatureCollection.prototype.cast = function(featurecollection) {
 
 Schema.Types.FeatureCollection = FeatureCollection;
 Types.FeatureCollection = FeatureCollection;
+
+/**
+findOne({
+    location: {
+      $geoWithin: {
+        $geometry: colorado
+      }
+    }
+  }))
+const denver = { type: 'Point', coordinates: [-104.9903, 39.7392] };
+return City.create({ name: 'Denver', location: denver }).
+  then(() => City.findOne().where('location').within(colorado)).
+  then(doc => assert.equal(doc.name, 'Denver'));
+**/
