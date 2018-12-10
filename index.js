@@ -2,7 +2,23 @@ let nss = require('node-simple-server');
 require('./geojson-schema.js');
 require('dotenv').config({path: '.env'});
 
-let mongoConnectionURL = 'mongodb://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+const TestSchema = new mongoose.Schema({
+    title: String,
+    test: {},
+    point: mongoose.Schema.Types.Point,
+    multipoint: mongoose.Schema.Types.MultiPoint,
+    linestring: mongoose.Schema.Types.LineString,
+    multilinestring: mongoose.Schema.Types.MultiLineString,
+    polygon: mongoose.Schema.Types.Polygon,
+    multipolygon: mongoose.Schema.Types.MultiPolygon,
+    geometry: mongoose.Schema.Types.Geometry,
+    geometrycollection: mongoose.Schema.Types.GeometryCollection,
+    feature: mongoose.Schema.Types.Feature,
+    featurecollection: mongoose.Schema.Types.FeatureCollection
+}, { typeKey: '$type', collection: 'echoes' });
+const GeoJSON = db.model('GeoJSON', TestSchema);
+
+const mongoConnectionURL = 'mongodb://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 console.log(mongoConnectionURL);
 
 let ss = new nss.SimpleServer(process.env.SERVER_PORT, './');
@@ -35,21 +51,6 @@ ss.addRoute('POST', '/point', (request, response) => {
             let db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
             db.once('open', () => {
-                var TestSchema = new mongoose.Schema({
-                    title: String,
-                    test: {},
-                    point: mongoose.Schema.Types.Point,
-                    multipoint: mongoose.Schema.Types.MultiPoint,
-                    linestring: mongoose.Schema.Types.LineString,
-                    multilinestring: mongoose.Schema.Types.MultiLineString,
-                    polygon: mongoose.Schema.Types.Polygon,
-                    multipolygon: mongoose.Schema.Types.MultiPolygon,
-                    geometry: mongoose.Schema.Types.Geometry,
-                    geometrycollection: mongoose.Schema.Types.GeometryCollection,
-                    feature: mongoose.Schema.Types.Feature,
-                    featurecollection: mongoose.Schema.Types.FeatureCollection
-                }, { typeKey: '$type', collection: 'echoes' });
-                var GeoJSON = db.model('GeoJSON', TestSchema);
                 let newPoint = new GeoJSON({title: 'test', feature: arrival.feature});
                 console.log('New Point!');
                 newPoint.save((error, document) => {
@@ -111,21 +112,6 @@ ss.addRoute('POST', '/points', (request, response) => {
             let db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
             db.once('open', () => {
-                var TestSchema = new mongoose.Schema({
-                    title: String,
-                    test: {},
-                    point: mongoose.Schema.Types.Point,
-                    multipoint: mongoose.Schema.Types.MultiPoint,
-                    linestring: mongoose.Schema.Types.LineString,
-                    multilinestring: mongoose.Schema.Types.MultiLineString,
-                    polygon: mongoose.Schema.Types.Polygon,
-                    multipolygon: mongoose.Schema.Types.MultiPolygon,
-                    geometry: mongoose.Schema.Types.Geometry,
-                    geometrycollection: mongoose.Schema.Types.GeometryCollection,
-                    feature: mongoose.Schema.Types.Feature,
-                    featurecollection: mongoose.Schema.Types.FeatureCollection
-                }, { typeKey: '$type', collection: 'echoes' });
-                var GeoJSON = db.model('GeoJSON', TestSchema);
                 GeoJSON.find({}, (error, documents) => {
                     if (error) {
                         console.error(error);
