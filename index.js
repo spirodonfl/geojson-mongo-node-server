@@ -2,6 +2,7 @@ let nss = require('node-simple-server');
 require('./geojson-schema.js');
 require('dotenv').config({path: '.env'});
 
+const mongoose = require('mongoose');
 const TestSchema = new mongoose.Schema({
     title: String,
     test: {},
@@ -46,7 +47,6 @@ ss.addRoute('POST', '/point', (request, response) => {
             console.log('arrival: ', arrival);
 
             console.log(mongoConnectionURL);
-            let mongoose = require('mongoose');
             mongoose.connect(mongoConnectionURL, {useNewUrlParser: true});
             let db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
@@ -107,7 +107,6 @@ ss.addRoute('POST', '/points', (request, response) => {
             console.log('arrival: ', arrival);
 
             console.log(mongoConnectionURL);
-            let mongoose = require('mongoose');
             mongoose.connect(mongoConnectionURL, {useNewUrlParser: true});
             let db = mongoose.connection;
             db.on('error', console.error.bind(console, 'connection error:'));
