@@ -7,6 +7,10 @@ console.log(mongoConnectionURL);
 
 let ss = new nss.SimpleServer(process.env.SERVER_PORT, './');
 ss.addRoute('GET', '/api/1.0/pong', (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Request-Method', '*');
+    response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+    response.setHeader('Access-Control-Allow-Headers', '*');
     response.writeHead(200, {});
     response.end();
 });
