@@ -7,6 +7,7 @@ console.log(mongoConnectionURL);
 
 let ss = new nss.SimpleServer(process.env.SERVER_PORT, './');
 ss.addRoute('GET', '/api/1.0/pong', (request, response) => {
+    console.log('Pong request!');
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Request-Method', '*');
     response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
@@ -15,6 +16,7 @@ ss.addRoute('GET', '/api/1.0/pong', (request, response) => {
     response.end();
 });
 ss.addRoute('POST', '/point', (request, response) => {
+    console.log('Point request!');
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Request-Method', '*');
     response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
