@@ -50,7 +50,7 @@ ss.addRoute('POST', '/point', (request, response) => {
                     featurecollection: mongoose.Schema.Types.FeatureCollection
                 }, { typeKey: '$type', collection: 'echoes' });
                 var GeoJSON = db.model('GeoJSON', TestSchema);
-                let newPoint = new GeoJSON(arrival.feature);
+                let newPoint = new GeoJSON({title: 'test', feature: arrival.feature});
                 console.log('New Point!');
                 newPoint.save((error, document) => {
                     if (error) {
