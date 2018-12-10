@@ -1,11 +1,11 @@
-let NodeSimpleServer = require('node-simple-server');
+let SimpleServer = require('node-simple-server');
 require('./geojson-schema.js');
 require('dotenv').config({path: '.env'});
 
 let mongoose = require('mongoose');
 mongoose.connect('mongodb://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME, {useNewUrlParser: true});
 
-let nss = new NodeSimpleServer(9005, './');
+let nss = new SimpleServer(process.env.SERVER_PORT, './');
 nss.addRoute('POST', '/point', (request, response) => {
     let arrival = [];
     request
