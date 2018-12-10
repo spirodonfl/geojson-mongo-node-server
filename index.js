@@ -63,7 +63,7 @@ ss.addRoute('POST', '/point', (request, response) => {
                     } else {
                         console.log('New document', document);
                         db.close();
-                        let shipment = {ok: true, _id: document._id};
+                        let shipment = {ok: true, document};
                         response.writeHead(200, { 'Content-Type': 'application/json' });
                         response.end(JSON.stringify(shipment));
                         return true;
