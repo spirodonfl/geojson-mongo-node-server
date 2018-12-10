@@ -6,6 +6,10 @@ let mongoConnectionURL = 'mongodb://' + process.env.DB_USERNAME + ':' + process.
 console.log(mongoConnectionURL);
 
 let ss = new nss.SimpleServer(process.env.SERVER_PORT, './');
+ss.addRoute('GET', '/api/1.0/pong', (request, response) => {
+    response.writeHead(200, {});
+    response.end();
+});
 ss.addRoute('POST', '/point', (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Request-Method', '*');
@@ -65,6 +69,9 @@ ss.addRoute('POST', '/point', (request, response) => {
                 response.end(JSON.stringify(shipment));
             });
         });
+});
+ss.events.on('Server Is Listening', () => {
+    console.log('Server started');
 });
 ss.startServer();
 console.log('Server is running');
