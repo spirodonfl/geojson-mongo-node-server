@@ -52,6 +52,23 @@ ss.addRoute('POST', '/point', (request, response) => {
                 var GeoJSON = db.model('GeoJSON', TestSchema);
                 let newPoint = new GeoJSON(arrival.feature);
                 console.log('New Point!');
+                newPoint.save((error, document) => {
+                    if (error) {
+                        console.error(error);
+                        db.close();
+                        let shipment = {ok: false};
+                        response.writeHead(200, { 'Content-Type': 'application/json' });
+                        response.end(JSON.stringify(shipment));
+                        return false;
+                    } else {
+                        console.log('New document', document);
+                        db.close();
+                        let shipment = {ok: true};
+                        response.writeHead(200, { 'Content-Type': 'application/json' });
+                        response.end(JSON.stringify(shipment));
+                        return true;
+                    }
+                });
 
                 // var kittySchema = new mongoose.Schema({
                 //     name: String
@@ -71,10 +88,6 @@ ss.addRoute('POST', '/point', (request, response) => {
                 //     console.log(kittens);
                 // });
                 // Kitten.find({ name: /^fluff/ }, callback);
-
-                let shipment = {ok: true};
-                response.writeHead(200, { 'Content-Type': 'application/json' });
-                response.end(JSON.stringify(shipment));
             });
         });
 });
