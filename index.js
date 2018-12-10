@@ -91,7 +91,7 @@ ss.addRoute('POST', '/point', (request, response) => {
             });
         });
 });
-ss.addRoute('POST', '/point', (request, response) => {
+ss.addRoute('GET', '/point', (request, response) => {
     console.log('Point request!');
     response.setHeader('Access-Control-Allow-Origin', '*');
     response.setHeader('Access-Control-Request-Method', '*');
