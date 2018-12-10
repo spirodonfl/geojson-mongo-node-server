@@ -51,6 +51,7 @@ ss.addRoute('POST', '/point', (request, response) => {
                 }, { typeKey: '$type', collection: 'echoes' });
                 var GeoJSON = db.model('GeoJSON', TestSchema);
                 let newPoint = new GeoJSON(arrival.feature);
+                console.log('New Point!');
 
                 // var kittySchema = new mongoose.Schema({
                 //     name: String
